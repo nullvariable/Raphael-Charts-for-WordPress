@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Doug was here</title>
+    <script src="/wp-includes/js/jquery/jquery.js"></script>
+    <script src="js/g.raphael/raphael-min.js"></script>
+    <script src="js/g.raphael/g.raphael.js"></script>
+    <script src="js/g.raphael/g.bar-fixed.js"></script>
+    <script>
+        window.onload = function () {
+            var r = new Raphael("holder"),
+                    fin = function () {
+                        this.flag = r.popup(this.bar.x, this.bar.y, this.bar.value || "0").insertBefore(this);
+                    },
+                    fout = function () {
+                        this.flag.animate({opacity: 0}, 300, function () {this.remove();});
+                    },
+                    fin2 = function () {
+                        var y = [], res = [];
+                        for (var i = this.bars.length; i--;) {
+                            y.push(this.bars[i].y);
+                            res.push(this.bars[i].value || "0");
+                        }
+                        this.flag = r.popup(this.bars[0].x, Math.min.apply(Math, y), res.join(", ")).insertBefore(this);
+                    },
+                    fout2 = function () {
+                        this.flag.animate({opacity: 0}, 300, function () {this.remove();});
+                    },
+                    txtattr = { font: "12px sans-serif" };
+            var height = jQuery("#holder").height();
+            var width = jQuery("#holder").width();
+            r.barchart(1, 1, height, width, [139755, 81268, 15910, 3975], {labelcolor: '#ff0000', type: 'soft', colors: ['#ff2233', '#0000ee', '#ff2233', '#0000ee']}).label(['one', 'two', 'three', 'four'], true).hover(fin, fout);;
+            //r.text(191, 491, 'doug was here');
+            console.debug(r);
+        };
+    </script>
+</head>
+<body class="raphael" id="g.raphael.dmitry.baranovskiy.com">
+<div id="holder" style="height: 500px;width: 500px;"></div>
+
+</body>
+</html>
